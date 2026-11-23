@@ -30,7 +30,7 @@
   {"id":"js26","name":"Mayhem","color":"Black","source":"booster","tags":["Black","Aggro","Sacrifice","Graveyard","Removal"]},
   {"id":"js27","name":"Returned","color":"Black","source":"booster","tags":["Black","Graveyard","Recursion","Control","Removal"]},
   {"id":"js28","name":"Street Level Villains","color":"Black","source":"booster","tags":["Black","Control","Removal","Value","Midrange"]},
-  {"id":"js29","name":"Thunderbolts","color":"Black","source":"booster","tags":["Black","Midrange","Artifacts","Removal","Value"]},
+  {"id":"js29","name":"Thunderbolts","color":"Black","source":"booster","tags":["Black","Midrange","Lifegain","Artifacts","Removal","Value"]},
   {"id":"js30","name":"Ultron","color":"Black","source":"booster","tags":["Black","Artifacts","Tokens","Graveyard","Control"]},
 
   {"id":"js31","name":"Boosted","color":"Red","source":"booster","tags":["Red","Aggro","Haste","Combat","Power"]},
@@ -44,7 +44,7 @@
   {"id":"js39","name":"Vehicles","color":"Red","source":"booster","tags":["Red","Vehicles","Artifacts","Aggro","Crew"]},
   {"id":"js40","name":"Young Avengers","color":"Red","source":"booster","tags":["Red","Aggro","Counters","Tribal","Tokens"]},
 
-  {"id":"js41","name":"Animal","color":"Green","source":"booster","tags":["Green","Creature","Tokens","Go Wide","Aggro"]},
+  {"id":"js41","name":"Animal","color":"Green","source":"booster","tags":["Green","Creature","Lifegain","Tokens","Go Wide","Aggro"]},
   {"id":"js42","name":"Great Lakes Avengers","color":"Green","source":"booster","tags":["Green","Creature","Tokens","Go Wide","Midrange"]},
   {"id":"js43","name":"Incredible","color":"Green","source":"booster","tags":["Green","Creature","Counters","Trample","Aggro"]},
   {"id":"js44","name":"Rampaging","color":"Green","source":"booster","tags":["Green","Ramp","Trample","Big Creatures","Aggro"]},
