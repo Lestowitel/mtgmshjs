@@ -16,11 +16,91 @@ const colors = {
   Multicolor: { art: "#76613c", glow: "#d8b46a", symbol: "✦" }
 };
 
+
+const ScryfallImages = {
+  cards: [],
+
+  async load() {
+    try {
+      let url = "https://api.scryfall.com/cards/search?q=set%3Afmsc";
+      const allCards = [];
+
+      while (url) {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Scryfall API error");
+
+        const data = await response.json();
+        allCards.push(...data.data);
+        url = data.has_more ? data.next_page : null;
+      }
+
+      this.cards = allCards;
+      console.log("Scryfall theme cards loaded:", allCards.length);
+    } catch (error) {
+      console.error("Unable to load card images:", error);
+    }
+  },
+
+  normalize(value) {
+    return value.toLowerCase()
+      .replace(/[^a-z0-9]/g, "");
+  },
+
+  find(deck) {
+    const name = this.normalize(deck.name);
+
+    return this.cards.find(card => {
+      const cardName = this.normalize(card.flavor_name || "");
+      return cardName === name;
+    }) || this.cards.find(card => {
+      const cardName = this.normalize(card.name || "");
+      return cardName === name ||
+        cardName === name + "themecard";
+    });
+  },
+
+  image(deck) {
+    const card = this.find(deck);
+
+    if (!card) return null;
+
+    return card.image_uris?.normal ||
+      card.card_faces?.[0]?.image_uris?.normal ||
+      null;
+  }
+};
+
+
 function getThemeStyle(deck) {
   return colors[deck.color] || colors.Multicolor;
 }
 
 function renderGallery() {
+  
+const imageUrl = ScryfallImages.image(deck);
+
+<div class="artwork"
+  style="--art:${style.art};--glow:${style.glow}">
+  ${
+    imageUrl
+      ? `<img src="${imageUrl}" alt="${deck.name}" loading="lazy">`
+      : `<span class="symbol">${style.symbol}</span>`
+  }
+</div>
+
+.artwork img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.artwork {
+  background: #171920;
+}
+
   const query = search.value.toLowerCase().trim();
   const color = colorFilter.value;
   const source = sourceFilter.value;
