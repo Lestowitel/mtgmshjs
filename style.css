@@ -318,7 +318,7 @@ select {
 /* SELECTED CARD ARTWORK */
 
 .detail-artwork {
-  height: 250px;
+  height: 340px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -561,7 +561,7 @@ footer {
   }
 
   .detail-artwork {
-    height: 220px;
+    height: 280px;
   }
 }
 
