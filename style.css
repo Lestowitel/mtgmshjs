@@ -577,3 +577,60 @@ select:focus-visible {
 [hidden] {
   display: none !important;
 }
+
+/* CLICKABLE TAGS */
+
+.tag-clickable {
+  cursor: pointer;
+  font-family: inherit;
+  transition: .2s ease;
+}
+
+.tag-clickable:hover {
+  background: #66552e;
+  border-color: var(--gold);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* TAG EDITOR */
+
+.tag-editor {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.tag-editor input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.tag-editor button {
+  padding: 0 14px;
+  background: #66552e;
+  border: 1px solid var(--gold);
+  border-radius: 7px;
+  color: white;
+  font-weight: 800;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: .2s;
+}
+
+.tag-editor button:hover {
+  background: #89713c;
+}
+
+@media (max-width: 400px) {
+  .tag-editor {
+    flex-direction: column;
+  }
+
+  .tag-editor button {
+    padding: 11px;
+  }
+}
