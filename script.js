@@ -6,6 +6,7 @@ const sourceFilter = document.getElementById("sourceFilter");
 
 let decks = [];
 let selectedId = null;
+let scryfallCards = [];
 
 const colors = {
   White: { art: "#a89a70", glow: "#e6d9a2", symbol: "☀" },
@@ -16,93 +17,86 @@ const colors = {
   Multicolor: { art: "#76613c", glow: "#d8b46a", symbol: "✦" }
 };
 
-
-const ScryfallImages = {
-  cards: [],
-
-  async load() {
-    try {
-      let url = "https://api.scryfall.com/cards/search?q=set%3Afmsc";
-      const allCards = [];
-
-      while (url) {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("Scryfall API error");
-
-        const data = await response.json();
-        allCards.push(...data.data);
-        url = data.has_more ? data.next_page : null;
-      }
-
-      this.cards = allCards;
-      console.log("Scryfall theme cards loaded:", allCards.length);
-    } catch (error) {
-      console.error("Unable to load card images:", error);
-    }
-  },
-
-  normalize(value) {
-    return value.toLowerCase()
-      .replace(/[^a-z0-9]/g, "");
-  },
-
-  find(deck) {
-    const name = this.normalize(deck.name);
-
-    return this.cards.find(card => {
-      const cardName = this.normalize(card.flavor_name || "");
-      return cardName === name;
-    }) || this.cards.find(card => {
-      const cardName = this.normalize(card.name || "");
-      return cardName === name ||
-        cardName === name + "themecard";
-    });
-  },
-
-  image(deck) {
-    const card = this.find(deck);
-
-    if (!card) return null;
-
-    return card.image_uris?.normal ||
-      card.card_faces?.[0]?.image_uris?.normal ||
-      null;
-  }
-};
-
-
 function getThemeStyle(deck) {
   return colors[deck.color] || colors.Multicolor;
 }
-await ScryfallImages.load();
-renderGallery();
 
-function renderGallery() {
-  
-const imageUrl = ScryfallImages.image(deck);
+// Normalize names to compare theme titles
+function normalizeName(name) {
+  return name.toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "");
+}
 
-<div class="artwork"
-  style="--art:${style.art};--glow:${style.glow}">
-  ${
-    imageUrl
-      ? `<img src="${imageUrl}" alt="${deck.name}" loading="lazy">`
-      : `<span class="symbol">${style.symbol}</span>`
+function cleanThemeName(name) {
+  return normalizeName(name)
+    .replace(/themecard/g, "")
+    .replace(/theme/g, "")
+    .replace(/card/g, "");
+}
+
+// Load the 61 official theme cards from Scryfall
+async function loadScryfall() {
+  try {
+    const response = await fetch(
+      "https://api.scryfall.com/cards/search?q=set%3Afmsc&unique=prints"
+    );
+
+    if (!response.ok) {
+      throw new Error("Scryfall returned " + response.status);
+    }
+
+    const data = await response.json();
+    scryfallCards = data.data || [];
+
+    let nextPage = data.next_page;
+
+    while (data.has_more && nextPage) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const pageResponse = await fetch(nextPage);
+      if (!pageResponse.ok) break;
+
+      const pageData = await pageResponse.json();
+      scryfallCards.push(...pageData.data);
+      nextPage = pageData.next_page;
+      
+      if (!pageData.has_more) break;
+    }
+
+    console.log("Scryfall cards found:", scryfallCards.length);
+
+  } catch (error) {
+    console.warn("Scryfall images unavailable:", error);
+    scryfallCards = [];
   }
-</div>
-
-.artwork img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  position: absolute;
-  inset: 0;
-  z-index: 2;
 }
 
-.artwork {
-  background: #171920;
+// Find the image belonging to a theme
+function getCardImage(deck) {
+  const target = cleanThemeName(deck.name);
+
+  let card = scryfallCards.find(item =>
+    cleanThemeName(item.name) === target
+  );
+
+  if (!card) {
+    card = scryfallCards.find(item =>
+      cleanThemeName(item.name).startsWith(target)
+    );
+  }
+
+  if (!card) return null;
+
+  return card.image_uris?.normal ||
+    card.image_uris?.large ||
+    card.card_faces?.[0]?.image_uris?.normal ||
+    null;
 }
 
+// Generate the gallery
+function renderGallery() {
   const query = search.value.toLowerCase().trim();
   const color = colorFilter.value;
   const source = sourceFilter.value;
@@ -112,11 +106,10 @@ const imageUrl = ScryfallImages.image(deck);
     const matchesTags = deck.tags.some(tag =>
       tag.toLowerCase().includes(query)
     );
-    const matchesColor = color === "all" || deck.color === color;
-    const matchesSource = source === "all" || deck.source === source;
 
     return (matchesName || matchesTags) &&
-      matchesColor && matchesSource;
+      (color === "all" || deck.color === color) &&
+      (source === "all" || deck.source === source);
   });
 
   document.getElementById("resultCount").textContent =
@@ -124,21 +117,28 @@ const imageUrl = ScryfallImages.image(deck);
 
   gallery.innerHTML = filtered.map(deck => {
     const style = getThemeStyle(deck);
+    const image = getCardImage(deck);
     const active = deck.id === selectedId ? "active" : "";
 
     return `
       <button class="theme-card ${active}"
         data-id="${deck.id}"
-        aria-label="Select ${deck.name}"
         aria-pressed="${deck.id === selectedId}">
+
         <div class="artwork"
           style="--art:${style.art};--glow:${style.glow}">
-          <span class="art-label">MARVEL</span>
-          <span class="symbol">${style.symbol}</span>
-          <span class="art-label">JUMPSTART</span>
+
+          ${
+            image
+              ? `<img src="${image}" alt="${deck.name}" loading="lazy">`
+              : `<span class="symbol">${style.symbol}</span>`
+          }
+
         </div>
+
         <span class="card-name">${deck.name}</span>
         <span class="card-color">${deck.color}</span>
+
       </button>
     `;
   }).join("");
@@ -150,6 +150,7 @@ const imageUrl = ScryfallImages.image(deck);
   });
 }
 
+// Calculate shared tag compatibility
 function calculateCompatibility(first, second) {
   const a = first.tags.map(t => t.toLowerCase());
   const b = second.tags.map(t => t.toLowerCase());
@@ -157,12 +158,10 @@ function calculateCompatibility(first, second) {
   const shared = a.filter(tag => b.includes(tag));
   const union = new Set([...a, ...b]);
 
-  // Jaccard similarity: shared tags / unique tags
-  const score = Math.round(
-    shared.length / union.size * 100
-  );
-
-  return { score, shared };
+  return {
+    score: Math.round(shared.length / union.size * 100),
+    shared
+  };
 }
 
 function getBestPairs(deck) {
@@ -172,13 +171,14 @@ function getBestPairs(deck) {
       deck: other,
       ...calculateCompatibility(deck, other)
     }))
-    .sort((a, b) => {
-      if (b.score !== a.score) return b.score - a.score;
-      return a.deck.name.localeCompare(b.deck.name);
-    })
+    .sort((a, b) =>
+      b.score - a.score ||
+      a.deck.name.localeCompare(b.deck.name)
+    )
     .slice(0, 3);
 }
 
+// Show selected deck
 function selectDeck(id) {
   const deck = decks.find(item => item.id === id);
   if (!deck) return;
@@ -191,84 +191,89 @@ function selectDeck(id) {
 
   const style = getThemeStyle(deck);
   const artwork = document.getElementById("detailArtwork");
+  const image = getCardImage(deck);
 
   artwork.style.setProperty("--art", style.art);
   artwork.style.setProperty("--glow", style.glow);
 
-  document.getElementById("detailSymbol").textContent = style.symbol;
-  document.getElementById("detailColorLabel").textContent = deck.color;
+  artwork.innerHTML = image
+    ? `<img src="${image}" alt="${deck.name}"
+         class="detail-card-image">
+       <span id="detailColorLabel">${deck.color}</span>`
+    : `<span id="detailSymbol">${style.symbol}</span>
+       <span id="detailColorLabel">${deck.color}</span>`;
+
   document.getElementById("detailSource").textContent =
-    deck.source === "booster" ? "JUMPSTART BOOSTER" : "BEGINNER BOX";
+    deck.source === "booster"
+      ? "JUMPSTART BOOSTER"
+      : "BEGINNER BOX";
 
   document.getElementById("detailName").textContent = deck.name;
   document.getElementById("detailColor").textContent =
     deck.color.toUpperCase();
 
   document.getElementById("detailTags").innerHTML =
-    deck.tags.map(tag =>
-      `<span class="tag">${tag}</span>`
-    ).join("");
+    deck.tags.map(tag => `<span class="tag">${tag}</span>`).join("");
 
   renderPairs(deck);
 }
 
 function renderPairs(deck) {
   const pairs = getBestPairs(deck);
-  const container = document.getElementById("pairings");
 
-  container.innerHTML = pairs.map((pair, index) => {
-    const style = getThemeStyle(pair.deck);
-
-    const sharedText = pair.shared.length
-      ? `Shared tags: ${pair.shared.join(", ")}`
-      : "No shared tags";
-
-    return `
+  document.getElementById("pairings").innerHTML =
+    pairs.map((pair, index) => `
       <div class="pair-card">
         <div class="pair-top">
           <span>${index + 1}. ${pair.deck.name}</span>
           <span class="score">${pair.score}%</span>
         </div>
+
         <div class="score-bar">
           <div class="score-fill"
             style="width:${pair.score}%"></div>
         </div>
-        <div class="pair-reason">${sharedText}</div>
-        <div class="pair-reason" style="margin-top:5px;color:${style.glow}">
-          ${pair.deck.color}
+
+        <div class="pair-reason">
+          Shared tags: ${pair.shared.join(", ") || "None"}
         </div>
       </div>
-    `;
-  }).join("");
+    `).join("");
 }
 
 search.addEventListener("input", renderGallery);
 colorFilter.addEventListener("change", renderGallery);
 sourceFilter.addEventListener("change", renderGallery);
 
+// Start the website
 async function init() {
   try {
     const response = await fetch("./decks.json");
 
     if (!response.ok) {
-      throw new Error("Could not load decks.json");
+      throw new Error("Cannot load decks.json");
     }
 
     decks = await response.json();
 
     document.getElementById("totalCount").textContent = decks.length;
 
+    // First show all themes, even without images
+    renderGallery();
+
+    // Then load the real images
+    await loadScryfall();
+
+    // Refresh gallery with images
     renderGallery();
 
     if (decks.length !== 61) {
-      console.warn("Expected 61 themes, found:", decks.length);
+      console.warn("Expected 61 themes:", decks.length);
     }
+
   } catch (error) {
-    console.error(error);
-    gallery.innerHTML = `
-      <p>Unable to load the themes.
-      Check that decks.json is in the project root.</p>
-    `;
+    console.error("Website error:", error);
+    gallery.innerHTML = "<p>Error loading decks.json. Check your files.</p>";
   }
 }
 
