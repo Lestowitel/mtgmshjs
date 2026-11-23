@@ -74,6 +74,8 @@ const ScryfallImages = {
 function getThemeStyle(deck) {
   return colors[deck.color] || colors.Multicolor;
 }
+await ScryfallImages.load();
+renderGallery();
 
 function renderGallery() {
   
