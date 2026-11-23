@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111318">
+  <title>Marvel Jumpstart | MTG</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">
+      <span class="mana-logo">✦</span>
+      MARVEL <span>JUMPSTART</span>
+    </a>
+    <div class="top-meta">MAGIC: THE GATHERING</div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">MTG · MARVEL SUPER HEROES</div>
+      <h1>Choose your <span>Jumpstart.</span></h1>
+      <p>Explore all 61 themes and discover your perfect deck combination.</p>
+      <div class="stats">
+        <div><strong id="totalCount">61</strong><small>THEMES</small></div>
+        <div><strong>5</strong><small>COLORS</small></div>
+        <div><strong>2</strong><small>DECKS TO PLAY</small></div>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="gallery-panel">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">THE COLLECTION</div>
+            <h2>Jumpstart themes</h2>
+          </div>
+          <span id="resultCount" class="muted">61 themes</span>
+        </div>
+
+        <div class="filters">
+          <input id="search" type="search"
+            placeholder="Search a theme..." aria-label="Search themes">
+          <select id="colorFilter" aria-label="Filter by color">
+            <option value="all">All colors</option>
+            <option value="White">White</option>
+            <option value="Blue">Blue</option>
+            <option value="Black">Black</option>
+            <option value="Red">Red</option>
+            <option value="Green">Green</option>
+            <option value="Multicolor">Multicolor</option>
+          </select>
+          <select id="sourceFilter" aria-label="Filter by product">
+            <option value="all">All products</option>
+            <option value="booster">Jumpstart Booster</option>
+            <option value="beginner">Beginner Box</option>
+          </select>
+        </div>
+
+        <div id="gallery" class="gallery"></div>
+      </div>
+
+      <aside class="detail-panel" id="detailPanel">
+        <div id="emptyState" class="empty-state">
+          <div class="empty-symbol">✦</div>
+          <h2>Select a theme</h2>
+          <p>Choose one of the 61 themes to see its colors, tags and best deck pairings.</p>
+        </div>
+
+        <div id="deckDetails" hidden>
+          <div id="detailArtwork" class="detail-artwork">
+            <span id="detailSymbol">✦</span>
+            <span id="detailColorLabel"></span>
+          </div>
+          <div class="detail-content">
+            <div class="eyebrow" id="detailSource"></div>
+            <h2 id="detailName"></h2>
+            <div id="detailColor" class="color-label"></div>
+
+            <div class="detail-section">
+              <h3>DECK TAGS</h3>
+              <div id="detailTags" class="tag-list"></div>
+            </div>
+
+            <div class="detail-section">
+              <div class="pair-heading">
+                <h3>BEST PAIR WITH</h3>
+                <span class="muted">TOP 3</span>
+              </div>
+              <div id="pairings" class="pairings"></div>
+            </div>
+            <p class="disclaimer">
+              Pairing scores are calculated from shared tags.
+              They are community-style estimates, not official ratings.
+            </p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      MARVEL JUMPSTART · FAN-MADE PROJECT · NOT AFFILIATED WITH WIZARDS OF THE COAST OR MARVEL
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
