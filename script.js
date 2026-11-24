@@ -847,7 +847,12 @@ function selectDeck(id) {
 // Render strategic similarities
 
 renderPairs(deck);
-
+// Automatically show selected deck details
+document.getElementById("detailPanel")
+  ?.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 // Render buttons to add theme to either deck slot
 
 renderBuilderButtons(deck);
