@@ -1296,3 +1296,71 @@ footer {
   }
 
 }
+
+/* ==========================================
+   HORIZONTAL THEME DETAILS
+========================================== */
+
+.detail-layout {
+  display: grid;
+  grid-template-columns:
+    minmax(220px, 0.85fr)
+    minmax(0, 1.4fr);
+  gap: 25px;
+  padding: 22px;
+  align-items: start;
+}
+
+.detail-visual {
+  width: 100%;
+  max-width: 400px;
+}
+
+.detail-artwork {
+  width: 100%;
+  aspect-ratio: 7 / 6;
+  height: auto;
+  border-radius: 10px;
+}
+
+.detail-artwork > span:first-child {
+  font-size: 65px;
+}
+
+.detail-content {
+  min-width: 0;
+  padding: 0;
+}
+
+.detail-content h2 {
+  font-size: 29px;
+  margin: 8px 0;
+}
+
+.detail-content .detail-section {
+  margin-top: 18px;
+  padding-top: 16px;
+}
+
+.detail-content .pairings {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 700px) {
+
+  .detail-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 15px;
+  }
+
+  .detail-visual {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .detail-content h2 {
+    font-size: 25px;
+  }
+
+}
