@@ -58,7 +58,7 @@
   {"id":"js51","name":"Fantastic","color":"Multicolor","source":"booster","tags":["Multicolor","Ramp","Creatures","Value","Midrange"]},
 
   {"id":"bb01","name":"Heroes","color":"White","source":"beginner","tags":["White","Midrange","Soldiers","Lifegain","Protection"]},
-  {"id":"bb02","name":"Tutorial Theme Card","color":"White","source":"beginner","tags":["White","Aggro","Soldiers","Combat","Protection"]},
+  {"id":"bb02","name":"Tutorial Captain America","color":"White","source":"beginner","tags":["White","Aggro","Soldiers","Combat","Protection"]},
   {"id":"bb03","name":"Artifacts","color":"Blue","source":"beginner","tags":["Blue","Artifacts","Ramp","Card Draw","Value"]},
   {"id":"bb04","name":"Card Draw","color":"Blue","source":"beginner","tags":["Blue","Card Draw","Control","Value","Artifacts"]},
   {"id":"bb05","name":"HYDRA","color":"Black","source":"beginner","tags":["Black","Graveyard","Removal","Recursion","Value"]},
