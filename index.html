@@ -1,232 +1,363 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#111318">
-  <meta name="description" content="Explore Marvel Jumpstart themes, build combinations and discover synergies.">
-  <title>Marvel Jumpstart Companion</title>
+
+  <meta name="description"
+    content="Explore all Marvel Jumpstart MTG themes and discover the best deck combinations.">
+
+  <title>Marvel Jumpstart | MTG</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="topbar">
-  <a class="brand" href="#">
-    <span class="mana-logo">✦</span>
-    MARVEL <span>JUMPSTART</span>
-  </a>
-  <div class="top-meta">MTG COMPANION</div>
-</header>
+  <!-- HEADER -->
 
-<main class="container">
+  <header class="topbar">
+    <a class="brand" href="#">
+      <span class="mana-logo">✦</span>
+      MARVEL <span>JUMPSTART</span>
+    </a>
 
-  <section class="hero">
-    <div class="eyebrow">MTG · MARVEL SUPER HEROES</div>
-    <h1>Build your <span>combination.</span></h1>
-    <p>Explore themes, discover synergies and prepare your next Jumpstart game.</p>
-    <div class="stats">
-      <div><strong id="totalCount">61</strong><small>THEMES</small></div>
-      <div><strong>5</strong><small>COLORS</small></div>
-      <div><strong>2</strong><small>DECKS TO PLAY</small></div>
+    <div class="top-meta">
+      MAGIC: THE GATHERING
     </div>
-  </section>
+  </header>
 
-  <!-- DAILY CHALLENGE -->
-  <section class="challenge-panel">
-    <div class="challenge-header">
-      <div>
-        <div class="eyebrow">DAILY MISSION</div>
-        <h2>Daily Jumpstart Challenge</h2>
-      </div>
-      <span class="live-label">● TODAY'S CHALLENGE</span>
-    </div>
+  <main class="container">
 
-    <div class="challenge-content">
-      <div class="challenge-player">
-        <small>YOUR COLORS</small>
-        <h3 id="dailyPlayer">Loading...</h3>
-        <span id="dailyPlayerGuild"></span>
-      </div>
-      <div class="challenge-versus">VS</div>
-      <div class="challenge-player opponent">
-        <small>OPPONENT COLORS</small>
-        <h3 id="dailyOpponent">Loading...</h3>
-        <span id="dailyOpponentGuild"></span>
-      </div>
-    </div>
+    <!-- HERO -->
 
-    <div class="challenge-footer">
-      <div>
-        <strong id="dailyTitle">Daily Challenge</strong>
-        <p id="dailyDescription"></p>
-      </div>
-      <span id="dailyDate"></span>
-    </div>
-  </section>
+    <section class="hero">
+      <div class="eyebrow">MTG · MARVEL SUPER HEROES</div>
 
-  <!-- DECK BUILDER -->
-  <section class="builder-panel" id="builder">
-    <div class="section-heading">
-      <div>
-        <div class="eyebrow">YOUR NEXT GAME</div>
-        <h2>Jumpstart Deck Builder</h2>
-      </div>
-      <button class="secondary-button" id="randomButton">✦ Random combination</button>
-    </div>
+      <h1>
+        Choose your <span>Jumpstart.</span>
+      </h1>
 
-    <div class="deck-slots">
-      <div class="deck-slot" id="slot1">
-        <div class="slot-label">DECK 1</div>
-        <div class="slot-empty">
-          <span>＋</span>
-          <strong>Select your first theme</strong>
-          <small>Choose a theme from the collection below</small>
+      <p>
+        Explore all 61 themes, build your combination
+        and discover unexpected synergies.
+      </p>
+
+      <div class="stats">
+        <div>
+          <strong id="totalCount">61</strong>
+          <small>THEMES</small>
         </div>
-        <div class="slot-selected" hidden>
-          <div class="slot-artwork"></div>
-          <div class="slot-info">
-            <h3 class="slot-name"></h3>
-            <span class="slot-color"></span>
-            <a class="official-link" target="_blank" rel="noopener">Official decklist ↗</a>
-            <button class="remove-slot">Remove</button>
+
+        <div>
+          <strong>5</strong>
+          <small>COLORS</small>
+        </div>
+
+        <div>
+          <strong>2</strong>
+          <small>DECKS TO PLAY</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- DAILY CHALLENGE -->
+
+    <section class="daily-section">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">DAILY CHALLENGE</div>
+          <h2>Today's matchup</h2>
+        </div>
+
+        <span class="muted">NEW CHALLENGE EVERY DAY</span>
+      </div>
+
+      <div id="dailyChallenge" class="daily-challenge">
+        Loading today's challenge...
+      </div>
+    </section>
+
+    <!-- DECK BUILDER -->
+
+    <section class="builder-section">
+
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">YOUR NEXT GAME</div>
+          <h2>Build your combination</h2>
+        </div>
+
+        <span class="muted">PICK TWO THEMES</span>
+      </div>
+
+      <div class="deck-builder">
+
+        <!-- DECK 1 -->
+
+        <div class="deck-slot" id="deckSlot1">
+          <div class="deck-slot-empty">
+            <span>01</span>
+            <h3>Deck 1</h3>
+            <p>Select a theme from the collection</p>
           </div>
         </div>
-      </div>
 
-      <div class="builder-plus">+</div>
+        <div class="builder-plus">+</div>
 
-      <div class="deck-slot" id="slot2">
-        <div class="slot-label">DECK 2</div>
-        <div class="slot-empty">
-          <span>＋</span>
-          <strong>Select your second theme</strong>
-          <small>Choose another theme from the collection</small>
-        </div>
-        <div class="slot-selected" hidden>
-          <div class="slot-artwork"></div>
-          <div class="slot-info">
-            <h3 class="slot-name"></h3>
-            <span class="slot-color"></span>
-            <a class="official-link" target="_blank" rel="noopener">Official decklist ↗</a>
-            <button class="remove-slot">Remove</button>
+        <!-- DECK 2 -->
+
+        <div class="deck-slot" id="deckSlot2">
+          <div class="deck-slot-empty">
+            <span>02</span>
+            <h3>Deck 2</h3>
+            <p>Select another theme from the collection</p>
           </div>
         </div>
+
       </div>
-    </div>
 
-<div class="tag-manager">
-  <h3>Custom deck tags</h3>
-  <div id="customTagList" class="tag-list"></div>
-  <div class="tag-editor">
-    <input id="customTagInput" placeholder="Add a custom tag...">
-    <button id="addCustomTag">+ Add tag</button>
-  </div>
-</div>
+      <div class="combination-footer">
 
-    <div class="builder-controls">
-      <button class="primary-button" id="saveCombination" disabled>♥ Save combination</button>
-      <button class="secondary-button" id="clearBuilder">Clear builder</button>
-    </div>
-
-    <div id="combinationAnalysis" class="analysis-panel" hidden>
-      <div class="analysis-grid">
-        <div>
-          <small>MOST SIMILAR</small>
-          <strong id="builderSimilarity">—</strong>
-          <p id="builderSimilarityReason"></p>
+        <div id="combinationSummary" class="combination-summary">
+          Choose two themes to create a combination.
         </div>
-        <div>
-          <small>BEST SYNERGY</small>
-          <strong id="builderSynergy">—</strong>
-          <p id="builderSynergyReason"></p>
+
+        <div class="combination-actions">
+
+          <button
+            type="button"
+            id="copyCombination"
+            class="action-button secondary"
+            disabled>
+            Copy combination
+          </button>
+
+          <button
+            type="button"
+            id="saveCombination"
+            class="action-button primary"
+            disabled>
+            Save combination
+          </button>
+
         </div>
-        <div>
-          <small>COMBINED COLORS</small>
-          <strong id="builderColors">—</strong>
-          <p>Color identity of your combination</p>
+
+      </div>
+
+    </section>
+
+    <!-- MAIN WORKSPACE -->
+
+    <section class="workspace">
+
+      <!-- GALLERY -->
+
+      <div class="gallery-panel">
+
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">THE COLLECTION</div>
+            <h2>Jumpstart themes</h2>
+          </div>
+
+          <span id="resultCount" class="muted">
+            61 themes
+          </span>
         </div>
+
+        <!-- SEARCH AND FILTERS -->
+
+        <div class="filters">
+
+          <input
+            id="search"
+            type="search"
+            placeholder="Search a theme or tag..."
+            aria-label="Search themes and tags">
+
+          <select id="colorFilter" aria-label="Filter by color">
+            <option value="all">All colors</option>
+            <option value="White">White</option>
+            <option value="Blue">Blue</option>
+            <option value="Black">Black</option>
+            <option value="Red">Red</option>
+            <option value="Green">Green</option>
+            <option value="Multicolor">Multicolor</option>
+          </select>
+
+          <select id="sourceFilter" aria-label="Filter by product">
+            <option value="all">All products</option>
+            <option value="booster">Jumpstart Booster</option>
+            <option value="beginner">Beginner Box</option>
+          </select>
+
+        </div>
+
+        <!-- GALLERY -->
+
+        <div id="gallery" class="gallery">
+          <!-- Generated by script.js -->
+        </div>
+
       </div>
-    </div>
-  </section>
 
-  <!-- RECOMMENDATIONS -->
-  <section class="recommendation-panel" id="recommendations" hidden>
-    <div class="section-heading">
-      <div>
-        <div class="eyebrow">DISCOVER MORE</div>
-        <h2>Pairing recommendations</h2>
+      <!-- THEME DETAILS -->
+
+      <aside class="detail-panel" id="detailPanel">
+
+        <!-- EMPTY STATE -->
+
+        <div id="emptyState" class="empty-state">
+
+          <div class="empty-symbol">✦</div>
+
+          <h2>Select a theme</h2>
+
+          <p>
+            Choose one of the 61 themes to see its colors,
+            tags and most similar combinations.
+          </p>
+
+        </div>
+
+        <!-- SELECTED THEME -->
+
+        <div id="deckDetails" hidden>
+
+          <div id="detailArtwork" class="detail-artwork">
+            <span id="detailSymbol">✦</span>
+            <span id="detailColorLabel"></span>
+          </div>
+
+          <div class="detail-content">
+
+            <div class="eyebrow" id="detailSource"></div>
+
+            <h2 id="detailName"></h2>
+
+            <div id="detailColor" class="color-label"></div>
+
+            <!-- TAGS -->
+
+            <div class="detail-section">
+
+              <h3>DECK TAGS</h3>
+
+              <div id="detailTags" class="tag-list">
+              </div>
+
+              <div class="tag-editor">
+
+                <input
+                  type="text"
+                  id="newTag"
+                  placeholder="Add a new tag..."
+                  list="tagSuggestions"
+                  autocomplete="off">
+
+                <datalist id="tagSuggestions">
+                </datalist>
+
+                <button id="addTagButton" type="button">
+                  + Add tag
+                </button>
+
+              </div>
+
+            </div>
+
+            <!-- MOST SIMILAR -->
+
+            <div class="detail-section">
+
+              <div class="pair-heading">
+
+                <h3>MOST SIMILAR</h3>
+
+                <span class="muted">TOP 3</span>
+
+              </div>
+
+              <div id="pairings" class="pairings">
+              </div>
+
+            </div>
+
+            <p class="disclaimer">
+              Similarity scores consider shared tags and
+              potential strategic synergies. They are
+              community-style estimates, not official ratings.
+            </p>
+
+            <!-- OFFICIAL DECK LIST -->
+
+            <div class="official-link-section">
+
+              <a
+                href="https://magic.wizards.com/en/news/announcements/marvel-super-heroes-jumpstart-booster-themes"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="official-link">
+                View official deck list ↗
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+    </section>
+
+    <!-- COMBINATION HISTORY -->
+
+    <section class="history-section">
+
+      <div class="section-heading">
+
+        <div>
+          <div class="eyebrow">YOUR COLLECTION</div>
+          <h2>Combination history</h2>
+        </div>
+
+        <span class="muted">SAVED IN YOUR BROWSER</span>
+
       </div>
-    </div>
 
-    <div class="recommendation-tabs">
-      <button class="tab-button active" data-tab="similar">Most Similar</button>
-      <button class="tab-button" data-tab="synergy">Best Synergy</button>
-    </div>
-    <p class="recommendation-description" id="recommendationDescription"></p>
-    <div class="recommendation-grid" id="recommendationResults"></div>
-  </section>
+      <p class="history-intro">
+        Your previously created Jumpstart combinations.
+        Save your favorite pairings and load them again
+        whenever you want.
+      </p>
 
-  <!-- SAVED COMBINATIONS -->
-  <section class="history-panel">
-    <div class="section-heading">
-      <div>
-        <div class="eyebrow">YOUR COLLECTION</div>
-        <h2>Saved Combinations</h2>
+      <div id="combinationHistory" class="combination-history">
+        <p class="muted">No combinations created yet.</p>
       </div>
-      <span class="muted" id="historyCount">0 saved</span>
-    </div>
-    <div id="historyList" class="history-list">
-      <div class="empty-history">
-        Your saved combinations will appear here.
-      </div>
-    </div>
-  </section>
 
-  <!-- GALLERY -->
-  <section class="gallery-panel">
-    <div class="section-heading">
-      <div>
-        <div class="eyebrow">THE COLLECTION</div>
-        <h2>Explore Jumpstart themes</h2>
-      </div>
-      <span id="resultCount" class="muted">61 themes</span>
-    </div>
+    </section>
 
-    <div class="filters">
-      <input id="search" type="search" placeholder="Search themes or tags..." aria-label="Search themes and tags">
-      <select id="colorFilter" aria-label="Filter by color">
-        <option value="all">All colors</option>
-        <option value="White">White</option>
-        <option value="Blue">Blue</option>
-        <option value="Black">Black</option>
-        <option value="Red">Red</option>
-        <option value="Green">Green</option>
-        <option value="Multicolor">Multicolor</option>
-      </select>
-      <select id="sourceFilter" aria-label="Filter by product">
-        <option value="all">All products</option>
-        <option value="booster">Jumpstart Booster</option>
-        <option value="beginner">Beginner Box</option>
-      </select>
-    </div>
+    <!-- FOOTER -->
 
-    <div class="active-slot-selector">
-      <span>Adding selected themes to:</span>
-      <button class="slot-select active" data-slot="1">Deck 1</button>
-      <button class="slot-select" data-slot="2">Deck 2</button>
-    </div>
+    <footer>
+      MARVEL JUMPSTART · FAN-MADE PROJECT
 
-    <div id="gallery" class="gallery"></div>
-  </section>
+      <br>
 
-  <footer>
-    MARVEL JUMPSTART COMPANION · FAN-MADE PROJECT<br>
-    NOT AFFILIATED WITH WIZARDS OF THE COAST OR MARVEL
-  </footer>
+      NOT AFFILIATED WITH WIZARDS OF THE COAST
+      OR MARVEL
+    </footer>
 
-</main>
+  </main>
 
-<script src="script.js"></script>
+  <!-- JAVASCRIPT -->
+
+  <script src="script.js"></script>
+
 </body>
 </html>
