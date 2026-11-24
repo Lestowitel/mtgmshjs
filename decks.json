@@ -26,7 +26,7 @@
   {"id":"js22","name":"DOOM","color":"Black","source":"booster","tags":["Black","Control","Removal","Artifacts","Value"]},
   {"id":"js23","name":"HYDRA","color":"Black","source":"booster","tags":["Black","Midrange","Sacrifice","Removal","Value"]},
   {"id":"js24","name":"Lethal","color":"Black","source":"booster","tags":["Black","Aggro","Removal","Deathtouch","Equipment"]},
-  {"id":"js25","name":"Master of Evil","color":"Black","source":"booster","tags":["Black","Midrange","Removal","Tokens","Value"]},
+  {"id":"js25","name":"Masters of Evil","color":"Black","source":"booster","tags":["Black","Midrange","Removal","Tokens","Value"]},
   {"id":"js26","name":"Mayhem","color":"Black","source":"booster","tags":["Black","Aggro","Sacrifice","Graveyard","Removal"]},
   {"id":"js27","name":"Returned","color":"Black","source":"booster","tags":["Black","Graveyard","Recursion","Control","Removal"]},
   {"id":"js28","name":"Street Level Villains","color":"Black","source":"booster","tags":["Black","Control","Removal","Value","Midrange"]},
