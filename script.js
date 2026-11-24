@@ -1350,6 +1350,55 @@ if (copyCombinationButton) {
 }
 
 // ==========================================
+// RANDOMIZE TWO DECKS
+// ==========================================
+
+const randomizeButton =
+  document.getElementById("randomizeCombination");
+
+function randomizeCombination() {
+
+  // Ensure at least two themes are available
+  if (decks.length < 2) return;
+
+  // Pick two different random themes
+  const shuffledDecks = [...decks];
+
+  for (let i = shuffledDecks.length - 1; i > 0; i--) {
+
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [shuffledDecks[i], shuffledDecks[j]] =
+      [shuffledDecks[j], shuffledDecks[i]];
+
+  }
+
+  // Assign the two random decks
+  combination.deck1 = shuffledDecks[0].id;
+  combination.deck2 = shuffledDecks[1].id;
+
+  // Refresh the entire builder
+  updateBuilderSelection();
+
+  // Scroll to the combination
+  document.querySelector(".builder-section")
+    ?.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+}
+
+if (randomizeButton) {
+
+  randomizeButton.addEventListener(
+    "click",
+    randomizeCombination
+  );
+
+}
+
+// ==========================================
 // END OF PART 3A
 // CONTINUE WITH PART 3B
 // ==========================================
